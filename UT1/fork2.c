@@ -5,13 +5,13 @@
 #include <sys/wait.h>
 
 void main() {
-    pid_t pid, pidHijo;
+    pid_t pid;
     pid = fork();
     if (pid == 0 ){ //proceso hijo
         printf("Me llamo Brian Velarde.\n");
     }
     else { //proceso padre
-        pidHijo = wait(NULL);
+        wait(NULL);
         printf("El PID de mi hijo es: %d. Mi PID propio es: %d\n", pid,getpid());
     }
     exit(0);

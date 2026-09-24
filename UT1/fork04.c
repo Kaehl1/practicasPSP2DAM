@@ -5,7 +5,7 @@
 #include <sys/wait.h>
 
 void main() {
-    pid_t pid, pidP3, pidHijo1, pidHijo2;
+    pid_t pid, pidP3;
     pid = fork();
     if (pid == 0) {
         sleep(3);
