@@ -5,7 +5,7 @@
 #include <sys/wait.h>
 
 void main() {
-    pid_t pid,pid2,pid3;
+    pid_t pid,pid2;
     pid = fork();
     if (pid == 0) {
         pid2 = fork();
