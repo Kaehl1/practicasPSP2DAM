@@ -1,35 +1,39 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include <sys/wait.h>
 
 void main() {
     int fd[2];
     pid_t pid;
+    pipe(fd);
     pid = fork();
-    if (pid == 0)
-    {
+    if (pid == 0) {
+        sleep(2);
         close(fd[1]);
-        int recibido1,recibido2,recibido3,suma;
-        read(fd[0], &recibido1,sizeof(recibido1));
-        printf("Recibido %d\n", recibido1);
-        read(fd[0], &recibido2,sizeof(recibido2));
-        printf("Recibido %d\n", recibido2);
-        read(fd[0], &recibido3,sizeof(recibido3));
-        printf("Recibido %d\n", recibido3);
+        char buffer[100];
+        int suma = 0;
+
+        read(fd[0], buffer, sizeof(buffer));
+        while (strcmp(buffer, "+") != 0) {
+            printf("Numero a sumar: %s\n", buffer);
+            suma += atoi(buffer);
+            read(fd[0], buffer, sizeof(buffer));
+        }
+        printf("Recibido carácter +\n");
+        printf("La suma total es igual a: %d\n", suma);
         close(fd[0]);
 
-    }else{
+    } else {
         close(fd[0]);
-        int num1 = 22;
-        int num2 = 11;
-        int num3 = 33;
-        write(fd[1],&num1,sizeof(num1));
-        printf("Enviado %d\n",num1);
-        write(fd[1],&num2,sizeof(num2));
-        printf("Enviado %d\n",num2);
-        write(fd[1],&num3,sizeof(num3));
-        printf("Enviado %d\n",num3);
+        char entrada[32];
+        do {
+            scanf("%s", entrada);
+            write(fd[1], entrada, strlen(entrada) + 1);
+        } while (strcmp(entrada, "+") != 0);
         close(fd[1]);
+        wait(NULL);
     }
     exit(0);
 }
