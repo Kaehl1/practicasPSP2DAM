@@ -10,7 +10,6 @@ void main() {
     pipe(fd);
     pid = fork();
     if (pid == 0) {
-        sleep(2);
         close(fd[1]);
         char buffer[100];
         int suma = 0;
