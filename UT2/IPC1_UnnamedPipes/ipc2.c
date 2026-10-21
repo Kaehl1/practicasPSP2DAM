@@ -15,11 +15,11 @@ void main() {
         char buffer[100];
         int suma = 0;
 
-        read(fd[0], buffer, sizeof(buffer));
-        while (strcmp(buffer, "+") != 0) {
-            printf("Numero a sumar: %s\n", buffer);
-            suma += atoi(buffer);
-            read(fd[0], buffer, sizeof(buffer));
+        while (read(fd[0], buffer, sizeof(buffer))) {
+            if (strcmp(buffer, "+")!=0)
+            {
+                suma += atoi(buffer);
+            }
         }
         printf("Recibido carácter +\n");
         printf("La suma total es igual a: %d\n", suma);
@@ -29,6 +29,7 @@ void main() {
         close(fd[0]);
         char entrada[32];
         do {
+            printf("Numero a sumar: ");
             scanf("%s", entrada);
             write(fd[1], entrada, strlen(entrada) + 1);
         } while (strcmp(entrada, "+") != 0);
