@@ -12,3 +12,24 @@ Thumbs.db
 # Logs y temporales
 *.log
 tmp/
+
+# Ejecutables de Windows y salida por defecto de GCC
+*.exe
+*.out
+a.out
+
+# Archivos objeto de compilación
+*.o
+
+# Archivos FIFO / Tuberías nombradas si se quedan en disco
+PIPE*
+FIFO*
+canal
+
+# Regla automática para ignorar los ejecutables del tema
+ipc*
+fifo*
+
+# Excepciones: NO ignorar el código fuente ni cabeceras
+!*.c
+!*.h
